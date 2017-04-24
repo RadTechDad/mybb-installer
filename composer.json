@@ -1,0 +1,23 @@
+{
+    "name": "holycowzorz/mybb-installer",
+    "description": "A Command-Line Interface installer for MyBB",
+    "keywords": ["mybb","install","installer","cli"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Darrell Dudics (a.k.a. HoLyCoW, a.k.a. HoLyCoWzOrZ)",
+            "email": "holycowzorz@yahoo.com",
+            "homepage": "http://holycowzorz.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "symfony/console": "^3.2",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "HoLyCoWzOrZ\\": "src/"
+        }
+    }
+}

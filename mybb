@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+namespace HoLyCoWzOrZ;
+
+require __DIR__.'/vendor/autoload.php';
+
+use HoLyCoWzOrZ\Command\InstallMyBBCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('MyBB Command-Line Interface Installer', '1.0.0');
+
+$application->add(new InstallMyBBCommand());
+
+$application->run();
