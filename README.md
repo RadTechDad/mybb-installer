@@ -23,5 +23,5 @@ You can specify which version of MyBB you would like to install. You can also ch
 * Write documentation/comments for code
 
 ## Special Thanks
-Thanks to @taylorotwell for creating the [Laravel installer](https://github.com/laravel/installer) which gave me the idea to create this MyBB installer.
+Thanks to [@taylorotwell](https://github.com/taylorotwell) for creating the [Laravel installer](https://github.com/laravel/installer) which gave me the idea to create this MyBB installer.
 I also used a little bit of code from the [Laravel installer](https://github.com/laravel/installer) to speed things up.
