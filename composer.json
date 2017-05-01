@@ -15,9 +15,12 @@
         "symfony/console": "^3.2",
         "guzzlehttp/guzzle": "^6.2"
     },
+    "bin": [
+        "mybb"
+    ],
     "autoload": {
         "psr-4": {
-            "HoLyCoWzOrZ\\": "src/"
+            "HoLyCoWzOrZ\\MyBB\\Installer\\Console\\": "src/"
         }
     }
 }

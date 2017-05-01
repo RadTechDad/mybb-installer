@@ -1,6 +1,6 @@
 <?php
 
-namespace HoLyCoWzOrZ\Command;
+namespace HoLyCoWzOrZ\MyBB\Installer\Console\Command;
 
 use GuzzleHttp\Client;
 use PclZip;
@@ -11,9 +11,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-require_once(dirname(dirname(__FILE__)).'/pclzip.lib.php');
+require_once(__DIR__.'/../pclzip.lib.php');
 
-class InstallMyBBCommand extends Command
+class InstallCommand extends Command
 {
     protected $mybb_releases = [];
     protected $version_to_install;
