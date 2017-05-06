@@ -28,19 +28,8 @@ class InstallCommand extends Command
             ->setName('install')
             ->setDescription('Installs a new instance of MyBB')
 
-            ->addArgument(
-                'version',
-                InputArgument::OPTIONAL,
-                "The version of MyBB you would like to install",
-                'latest'
-            )
-
-            ->addOption(
-                'dir',
-                'd',
-                InputOption::VALUE_OPTIONAL,
-                'Name of folder where MyBB will be installed'
-            );
+            ->addArgument('dir', InputArgument::OPTIONAL, 'Name of folder where MyBB will be installed')
+            ->addOption('ver', null, InputOption::VALUE_OPTIONAL, "The version of MyBB you would like to install", 'latest');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -50,13 +39,13 @@ class InstallCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $install_dir = ($input->getOption('dir')) ? getcwd().'/'.$input->getOption('dir') : getcwd();
+        $install_dir = ($input->getArgument('dir')) ? getcwd().'/'.$input->getArgument('dir') : getcwd();
 
-        if ($input->getArgument('version') == 'latest') {
+        if ($input->getOption('ver') == 'latest') {
             $this->version_to_install = $this->mybb_releases[0];
         } else {
             foreach ($this->mybb_releases as $mybb_release) {
-                if ($mybb_release['version'] == $input->getArgument('version')) {
+                if ($mybb_release['version'] == $input->getOption('ver')) {
                     $this->version_to_install = $mybb_release;
                 }
             }
