@@ -7,7 +7,7 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
     require __DIR__.'/vendor/autoload.php';
 }
 
-$application = new Symfony\Component\Console\Application('MyBB Command-Line Interface Installer', '1.0.0');
+$application = new Symfony\Component\Console\Application('MyBB Command-Line Interface Installer', '1.1.0');
 $application->add(new HoLyCoWzOrZ\MyBB\Installer\Console\Command\InstallCommand());
 
 $application->run();
