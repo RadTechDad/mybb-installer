@@ -21,7 +21,7 @@ You can specify which version of MyBB you would like to install. You can also ch
 ## To Do:
 - [ ] Remove dependency of PclZip
 - [ ] Write documentation/comments for code
-- [ ] Add the ability to download and install MyBB 2.0
+- [x] Add the ability to download and install MyBB 2.0
 
 ## Version History
 See [Changelog]
