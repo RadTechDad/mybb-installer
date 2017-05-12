@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.0] - 2017-05-12
+### Added
+- Added the ability to download and install the MyBB 2.0 development branch
+
 ## [1.1.0] - 2017-03-30
 ### Changed
 - Rearranged Options and Arguments based on what would most commonly be used
