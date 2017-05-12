@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use PclZip;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,27 +30,15 @@ class InstallCommand extends Command
             ->setDescription('Installs a new instance of MyBB')
 
             ->addArgument('dir', InputArgument::OPTIONAL, 'Name of folder where MyBB will be installed')
-            ->addOption('ver', null, InputOption::VALUE_OPTIONAL, "The version of MyBB you would like to install", 'latest');
-    }
-
-    protected function initialize(InputInterface $input, OutputInterface $output)
-    {
-        $this->generateGitHubListOfReleases();
+            ->addOption('ver', null, InputOption::VALUE_OPTIONAL, "The version of MyBB you would like to install", 'latest')
+            ->addOption('dev', null, InputOption::VALUE_NONE, 'Installs the latest MyBB 2.0 (Development) release');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $install_dir = ($input->getArgument('dir')) ? getcwd().'/'.$input->getArgument('dir') : getcwd();
 
-        if ($input->getOption('ver') == 'latest') {
-            $this->version_to_install = $this->mybb_releases[0];
-        } else {
-            foreach ($this->mybb_releases as $mybb_release) {
-                if ($mybb_release['version'] == $input->getOption('ver')) {
-                    $this->version_to_install = $mybb_release;
-                }
-            }
-        }
+        $this->getVersion($input);
 
         if (is_null($this->version_to_install)) {
             $output->writeln("\n".'<error>*** Bad version or version does not exist on GitHub. ***</error>' . "\n");
@@ -76,11 +65,46 @@ class InstallCommand extends Command
 
         }
 
+        if ($this->version_to_install['version'] == '2.0') {
+            $helper = $this->getHelper('question');
+
+            $output->writeln('<fg=white;bg=red;options=bold>*** WARNING *** - MyBB 2.0 is under active development. It should not be installed on live boards.</>');
+            $output->writeln('');
+            $question = new ConfirmationQuestion('<info>Are you sure you want to install MyBB 2.0? </info>', false);
+
+            if (!$helper->ask($input, $output, $question)) {
+                return;
+            }
+        }
+
         $output->writeln('Installing MyBB <info>'.$this->version_to_install['version'].'</info> into: <info>'.$install_dir.'</info>');
 
         $this->download($zipFile = $this->makeFilename(), $this->version_to_install)
             ->extract($zipFile, $install_dir)
             ->cleanUp($zipFile);
+    }
+
+    protected function getVersion($input)
+    {
+        if ($input->getOption('dev')) {
+            $this->version_to_install =  [
+                'release' => 'dev',
+                'version' => '2.0',
+                'download' => 'https://github.com/mybb/mybb2/archive/master.zip'
+            ];
+        } else {
+            $this->generateGitHubListOfReleases();
+
+            if ($input->getOption('ver') == 'latest') {
+                $this->version_to_install = $this->mybb_releases[0];
+            } else {
+                foreach ($this->mybb_releases as $mybb_release) {
+                    if ($mybb_release['version'] == $input->getOption('ver')) {
+                        $this->version_to_install = $mybb_release;
+                    }
+                }
+            }
+        }
     }
 
     protected function generateGitHubListOfReleases()
@@ -139,12 +163,12 @@ class InstallCommand extends Command
      * Download the temporary Zip to the given file.
      *
      * @param  string  $zipFile
-     * @param  string  $version
+     * @param  string  $release
      * @return $this
      */
-    protected function download($zipFile, $version)
+    protected function download($zipFile, $release)
     {
-        $response = (new Client)->get($version['download']);
+        $response = (new Client)->get($release['download']);
         file_put_contents($zipFile, $response->getBody());
         return $this;
     }
@@ -168,7 +192,7 @@ class InstallCommand extends Command
 
         return $this;
     }
-    
+
     /**
      * Clean-up the Zip file.
      *

@@ -19,9 +19,15 @@ By default, the installer will install into the current directory. Also by defau
 You can specify which version of MyBB you would like to install. You can also change what directory you would like to install MyBB into by adding the `--dir` option.
 
 ## To Do:
-* Remove dependency of PclZip
-* Write documentation/comments for code
+- [ ] Remove dependency of PclZip
+- [ ] Write documentation/comments for code
+- [x] Add the ability to download and install MyBB 2.0
+
+## Version History
+See [Changelog]
 
 ## Special Thanks
 Thanks to [@taylorotwell](https://github.com/taylorotwell) for creating the [Laravel installer](https://github.com/laravel/installer) which gave me the idea to create this MyBB installer.
 I also used a little bit of code from the [Laravel installer](https://github.com/laravel/installer) to speed things up.
+
+[Changelog]: https://github.com/HoLyCoWzOrZ/mybb-installer/blob/master/CHANGELOG.md
