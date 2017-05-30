@@ -19,9 +19,10 @@ By default, the installer will install into the current directory. Also by defau
 You can specify which version of MyBB you would like to install. You can also change what directory you would like to install MyBB into by adding the `--dir` option.
 
 ## To Do:
-- [ ] Remove dependency of PclZip
+~~- [ ] Remove dependency of PclZip~~ (Not worth the time since MyBB 2.0 will be the next major release.)
 - [ ] Write documentation/comments for code
-- [x] Add the ability to download and install MyBB 2.0
+- [x] Add the ability to download and extract MyBB 2.0
+- [ ] Allow users to configure/setup the MyBB installation
 
 ## Version History
 See [Changelog]
